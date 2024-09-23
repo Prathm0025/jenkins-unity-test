@@ -1,33 +1,27 @@
 using UnityEditor;
+using UnityEngine;
+using System;
 using System.IO;
 using System.Linq;
 using System.IO.Compression;
 
 public class BuildScript
 {
-    public static void BuildWindows()
+    public static void BuildWebGL()
     {
-        string path = "Builds/Windows";
+        string path = "Builds/WebGL";
         CreateDirectory(path);
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
         {
             scenes = GetEnabledScenes(),
-            locationPathName = $"{path}/TestGame.exe",
-            target = BuildTarget.StandaloneWindows64,
+            locationPathName = path,
+            target = BuildTarget.WebGL,
             options = BuildOptions.None
         };
 
         BuildPipeline.BuildPlayer(buildPlayerOptions);
         ZipBuild(path);
-    }
-
-    public static void CreateDirectory(string path)
-    {
-        if (Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
     }
 
     private static string[] GetEnabledScenes()
@@ -37,6 +31,16 @@ public class BuildScript
             .Select(scene => scene.path)
             .ToArray();
     }
+
+    private static void CreateDirectory(string path)
+    {
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+    }
+
+    // Method to zip the build directory
     private static void ZipBuild(string buildPath)
     {
         string zipPath = buildPath + ".zip";
@@ -45,5 +49,6 @@ public class BuildScript
             File.Delete(zipPath);
         }
         ZipFile.CreateFromDirectory(buildPath, zipPath);
+        Console.WriteLine($"Zipped build to {zipPath}");
     }
 }
