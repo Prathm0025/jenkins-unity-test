@@ -1,5 +1,5 @@
 def PROJECT_NAME = "jenkins-unity-test"
-def CUSTOM_WORKSPACE = "C:\\Users\\morep\\OneDrive\\Documents\\Practice\\jenkins-unity-test${PROJECT_NAME}"
+def CUSTOM_WORKSPACE = "C:\\Users\\morep\\OneDrive\\Documents\\Practice\\new\\jenkins-unity-test${PROJECT_NAME}"
 def UNITY_VERSION = "2022.3.47f1"
 def UNITY_INSTALLATION = "C:\\Program Files\\Unity\\Hub\\Editor\\${UNITY_VERSION}\\Editor"
 
